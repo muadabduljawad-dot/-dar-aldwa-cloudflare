@@ -1,4 +1,4 @@
-// Set database_id and PUBLIC_SITE_URL from the actual Cloudflare account before deployment.
+// Independent Dar Aldwa resources. Keep these bindings separate from Alwaha.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "dar-aldwa",
