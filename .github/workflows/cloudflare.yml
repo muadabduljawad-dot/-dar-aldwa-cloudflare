@@ -1,0 +1,39 @@
+name: Deploy Dar Aldwa to Cloudflare
+on:
+  workflow_dispatch:
+    inputs:
+      initialise_admin:
+        description: 'Create or reset the administrator using repository secrets'
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: dar-aldwa-production
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: node scripts/check-config.mjs
+      - run: pnpm check
+      - run: pnpm build
+      - run: pnpm db:remote
+      - if: ${{ github.event_name == 'workflow_dispatch' && inputs.initialise_admin }}
+        run: node scripts/admin-from-env.mjs
+        env:
+          DAR_ADMIN_EMAIL: ${{ secrets.DAR_ADMIN_EMAIL }}
+          DAR_ADMIN_PASSWORD: ${{ secrets.DAR_ADMIN_PASSWORD }}
+      - run: pnpm run deploy

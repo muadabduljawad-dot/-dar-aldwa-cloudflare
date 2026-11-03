@@ -1,0 +1,34 @@
+// Set database_id and PUBLIC_SITE_URL from the actual Cloudflare account before deployment.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dar-aldwa",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-05-15",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "assets": {
+    "directory": "./public"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "dar-aldwa-content",
+      "database_id": "00000000-0000-4000-8000-000000000000",
+      "migrations_dir": "drizzle"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "BUCKET",
+      "bucket_name": "dar-aldwa-media"
+    }
+  ],
+  "vars": {
+    "PUBLIC_SITE_URL": "https://dar-aldwa.moadsalem0011.workers.dev"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "workers_dev": true
+}

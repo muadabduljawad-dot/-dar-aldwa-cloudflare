@@ -1,0 +1,1 @@
+18 integration checks passed: anonymous protection, forged identity rejection, CSRF, password/session, draft/save/conflicts, publish, restore, roles, R2, MIME protection, private enquiries, MP4 upload and ranges, public PDF, ten expanded blocks, embed validation, backup/import, logout.
