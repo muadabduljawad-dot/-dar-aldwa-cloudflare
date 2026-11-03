@@ -14,7 +14,7 @@
     {
       "binding": "DB",
       "database_name": "dar-aldwa-content",
-      "database_id": "00000000-0000-4000-8000-000000000000",
+      "database_id": "f45d90cd-ef03-42a3-9d55-dedffbadc543",
       "migrations_dir": "drizzle"
     }
   ],
